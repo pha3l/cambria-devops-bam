@@ -5,13 +5,12 @@ phases:
   install:
 
     runtime-versions: 
-      dotnet: 3.0
+      dotnet: 2.2
       nodejs: 10
 
     commands:
       - echo "Installing CDK..."
       - npm install -g aws-cdk
-
       - echo "Installing AWS extensions for .NET Core..."
       - dotnet tool install -g Amazon.Lambda.Tools
 
@@ -34,4 +33,4 @@ phases:
   post_build:
     commands:
       - echo "Deploying stack..."
-      - cdk deploy
+      - cdk deploy --require-approval never

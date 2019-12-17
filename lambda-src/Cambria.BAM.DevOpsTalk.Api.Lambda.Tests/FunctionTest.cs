@@ -10,6 +10,7 @@ using Amazon.Lambda.APIGatewayEvents;
 
 using Cambria.BAM.DevOpsTalk.Api.Lambda;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace Cambria.BAM.DevOpsTalk.Api.Lambda.Tests
 {
@@ -24,7 +25,13 @@ namespace Cambria.BAM.DevOpsTalk.Api.Lambda.Tests
         {
             var func = new Function();
 
-            var response = func.Get(new APIGatewayProxyRequest(), new TestLambdaContext());
+            var response = func.Get(new APIGatewayProxyRequest
+            {
+                Body = JsonConvert.SerializeObject(new
+                {
+                    Name = "BAM"
+                })
+            }, new TestLambdaContext());
 
             Assert.Equal((int) HttpStatusCode.OK, response.StatusCode);
             Assert.StartsWith("Hello", response.Body);
