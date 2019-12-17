@@ -22,7 +22,7 @@ namespace CambriaBamDevOpsTalkApi
                 Timeout = Duration.Seconds(15)
             });
 
-            api.Root.AddMethod("GET", new LambdaIntegration(helloWorldFunction));
+            api.Root.AddMethod("POST", new LambdaIntegration(helloWorldFunction));
 
             var output = new CfnOutput(this, "RootUri", new CfnOutputProps
             {
