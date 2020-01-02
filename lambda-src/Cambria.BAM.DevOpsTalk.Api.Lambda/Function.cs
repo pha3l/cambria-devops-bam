@@ -3,6 +3,7 @@ using System.Net;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Cambria.BAM.DevOpsTalk.Api.Lambda
 {
@@ -14,18 +15,21 @@ namespace Cambria.BAM.DevOpsTalk.Api.Lambda
 
         public APIGatewayProxyResponse Get(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            var req = JsonConvert.DeserializeObject<Request>(request.Body);
+            var firstName = request.QueryStringParameters["firstName"];
+            var lastName = request.QueryStringParameters["lastName"];
 
             return new APIGatewayProxyResponse
             {
-                Body = $"Hello {req.Name}!",
-                StatusCode = (int) HttpStatusCode.OK
+                Body = $"Hello {firstName} {lastName} from Lambda!",
+                StatusCode = (int) HttpStatusCode.OK,
+                Headers = new Dictionary<string,string>
+                {
+                    ["Access-Control-Allow-Origin"] = "*",
+                    ["X-Requested-With"]= "*",
+                    ["Access-Control-Allow-Headers"]= "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with",
+                    ["Access-Control-Allow-Methods"]= "POST,GET,OPTIONS"
+                }
             };
-        }
-
-        internal class Request 
-        {
-            public string Name { get; set; } = "World";
         }
     }
 }

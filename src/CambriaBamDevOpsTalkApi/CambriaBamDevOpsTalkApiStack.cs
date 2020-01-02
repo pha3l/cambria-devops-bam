@@ -11,7 +11,12 @@ namespace CambriaBamDevOpsTalkApi
             RestApi api = new RestApi(this, "HelloWorldAPI", new RestApiProps 
             {
                 RestApiName = "Hello World API",
-                Description = "This API says hello!"
+                Description = "This API says hello!",
+                DefaultCorsPreflightOptions = new CorsOptions 
+                {
+                    AllowMethods = Cors.ALL_METHODS,
+                    AllowOrigins = Cors.ALL_ORIGINS
+                }
             });
 
             Function helloWorldFunction = new Function(this, "hello-world", new FunctionProps
@@ -22,7 +27,8 @@ namespace CambriaBamDevOpsTalkApi
                 Timeout = Duration.Seconds(15)
             });
 
-            api.Root.AddMethod("POST", new LambdaIntegration(helloWorldFunction));
+            api.Root.AddMethod("GET", new LambdaIntegration(helloWorldFunction));
+            
 
             var output = new CfnOutput(this, "RootUri", new CfnOutputProps
             {

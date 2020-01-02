@@ -27,14 +27,15 @@ namespace Cambria.BAM.DevOpsTalk.Api.Lambda.Tests
 
             var response = func.Get(new APIGatewayProxyRequest
             {
-                Body = JsonConvert.SerializeObject(new
+                QueryStringParameters = new Dictionary<string, string>
                 {
-                    Name = "BAM"
-                })
+                    ["firstName"] = "Cambria",
+                    ["lastName"] = "DevOps"
+                }
             }, new TestLambdaContext());
 
             Assert.Equal((int) HttpStatusCode.OK, response.StatusCode);
-            Assert.StartsWith("Hello", response.Body);
+            Assert.Equal("Hello Cambria DevOps from Lambda!", response.Body);
         }
     }
 }
