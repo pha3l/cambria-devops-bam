@@ -33,7 +33,7 @@ namespace Cambria.BAM.DevOpsTalk.Api.Lambda.Tests
             }, new TestLambdaContext());
 
             Assert.Equal((int) HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal("\"Hello Cambria DevOps from Lambda!\"",
+            Assert.Equal("\"Hello Cambria DevOps from Lambda!!!\"",
                 response.Body);
         }
     }
