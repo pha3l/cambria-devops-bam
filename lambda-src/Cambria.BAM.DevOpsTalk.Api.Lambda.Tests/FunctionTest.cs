@@ -28,7 +28,7 @@ namespace Cambria.BAM.DevOpsTalk.Api.Lambda.Tests
                 QueryStringParameters = new Dictionary<string, string>
                 {
                     ["firstName"] = "Cambria",
-                    ["lastName"] = "DevOps"
+                    ["lastName"] = "DevOps1"
                 }
             }, new TestLambdaContext());
 
