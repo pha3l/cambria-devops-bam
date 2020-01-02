@@ -20,7 +20,10 @@ namespace Cambria.BAM.DevOpsTalk.Api.Lambda
 
             return new APIGatewayProxyResponse
             {
-                Body = $"Hello {firstName} {lastName} from Lambda!",
+                Body = JsonConvert.SerializeObject(new
+                {
+                   Greeting = $"Hello {firstName} {lastName} from Lambda!" 
+                }),
                 StatusCode = (int) HttpStatusCode.OK,
                 Headers = new Dictionary<string,string>
                 {
